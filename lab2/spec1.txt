@@ -1,0 +1,712 @@
+#% RAML 0.8
+title: API example
+baseUri: http://localhost/api/{functionName}
+version: v1
+
+traits:
+
+
+/clients
+	get:
+		responses:
+         		200:
+          			body:
+          				application/json:
+             					schema |
+               						{"type":"object"
+                					 "description": "All clients"
+                					 "properties": {
+                     					 "id":{"type":"int"}
+                    					 "name":{"type":"string"}
+                    					 "phone":{"type":"string"}
+                   					 "email": {"type":"string"}
+							 "passport": {"type":"string"}
+               						 "success": true
+                					 "status": 200
+              						 } 
+
+	post:
+		queryParameters:
+			name:
+				displayName: Full Name
+				type: string
+				description: Client`s full name
+				example: Sergeev Petr Leonidovich
+				required: true
+			phone:
+				displayName: Phone Number
+				type: string
+				description: Client`s phone number
+				example: +79153428765
+				required: true
+			email:
+				displayName: E-mail
+				type: string
+				description: Client`s e-mail
+				example: bazinga@bgg.ru
+				required: false
+			passport:
+				displayName: Passport
+				type: string
+				description: Client`s passport
+				example: 7111 325498 17.03.2010
+				required: true
+			password:
+				displayName: Password
+				type: binary
+				description: Client`s password
+				example: 8C3D37C819544DA273E1996689DCD4D6
+				required: false
+		responses:
+         		200:
+          			body:
+          				application/json:
+             					schema |
+               						{"type":"object"
+                					 "description": "Inserted new client data"
+                					 "properties": {
+                     					 "id":{"type":"int"}
+                    					 "name":{"type":"string"}
+                    					 "phone":{"type":"string"}
+                   					 "email": {"type":"string"}
+							 "passport": {"type":"string"}
+               						 "success": true
+                					 "status": 200
+              						 } 
+	/{clientID}
+		get:
+			queryParameters:
+				id:
+					displayName: ID
+					type: int
+					description: Client`s ID
+					example: 11
+					required: true
+			responses:
+         			200:
+          				body:
+          					application/json:
+             						schema |
+               							{"type":"object"
+                					 	"description": "Client data by ID"
+                					 	"properties": {
+                     					 	"id":{"type":"int"}
+                    					 	"name":{"type":"string"}
+                    					 	"phone":{"type":"string"}
+                   					 	"email": {"type":"string"}
+							 	"passport": {"type":"string"}
+               						 	"success": true
+                					 	"status": 200
+              						 	} 
+		put:
+			queryParameters:
+				id:
+					displayName: ID
+					type: int
+					description: Client`s ID
+					example: 11
+					required: true
+				name:
+					displayName: Full Name
+					type: string
+					description: Client`s full name
+					example: Sergeev Petr Leonidovich
+					required: false
+				phone:
+					displayName: Phone Number
+					type: string
+					description: Client`s phone number
+					example: +79153428765
+					required: false
+				email:
+					displayName: E-mail
+					type: string
+					description: Client`s e-mail
+					example: bazinga@bgg.ru
+					required: false
+				passport:
+					displayName: Passport
+					type: string
+					description: Client`s passport
+					example: 7111 325498 17.03.2010
+					required: false
+				password:
+					displayName: Password
+					type: binary
+					description: Client`s password
+					example: 8C3D37C819544DA273E1996689DCD4D6
+					required: false
+				responses:
+         			200:
+          				body:
+          					application/json:
+             						schema |
+               							{"type":"object"
+                					 	"description": "Changed client data"
+                					 	"properties": {
+                     					 	"id":{"type":"int"}
+                    					 	"name":{"type":"string"}
+                    					 	"phone":{"type":"string"}
+                   					 	"email": {"type":"string"}
+							 	"passport": {"type":"string"}
+               						 	"success": true
+                					 	"status": 200
+              						 	} 
+		delete:
+			uriParameters:
+               			id:
+                		description: Client`s ID
+                		type: int
+
+/accounts
+	get:
+		responses:
+         		200:
+          			body:
+          				application/json:
+             					schema |
+               						{"type":"object"
+                					 "description": "All accounts"
+                					 "properties": {
+                     					 "id":{"type":"int"}
+                    					 "client":{"type":"string"}
+                    					 "credit":{"type":"string"}
+                   					 "from_date": {"type":"date"}
+							 "to_date": {"type":"date"}
+							 "balance": {"type":"money"}
+							 "status": {"type":"string"}
+               						 "success": true
+                					 "status": 200
+              						 } 
+	post:
+		queryParameters:
+			client:
+				type: id
+				description: Client`s ID
+				example: 13
+				required: true
+			credit:
+				type: id
+				description: Credit type ID
+				example: 11
+				required: true
+			from_date:
+				type: date
+				description: Start date
+				example: 11.12.2019
+				required: true
+			to_date:
+				type: date
+				description: End date
+				example: 25.02.2025
+				required: true
+			balance:
+				type: money
+				description: Balance
+				example: 15000
+				required: false
+			status:
+				type: int
+				description: Status ID
+				example: 52
+				required: true
+		responses:
+         		200:
+          			body:
+          				application/json:
+             					schema |
+               						{"type":"object"
+                					 "description": "Inserted new account data"
+                					 "properties": {
+                     					 "id":{"type":"int"}
+                    					 "client":{"type":"int"}
+                    					 "credit":{"type":"int"}
+                   					 "from_date": {"type":"date"}
+							 "to_date": {"type":"date"}
+							 "balance": {"type":"money"}
+							 "status": {"type":"string"}
+               						 "success": true
+                					 "status": 200
+              						 } 
+	/{accountID}
+		get:
+			queryParameters:
+				id:
+					displayName: ID
+					type: int
+					description: Account`s ID
+					example: 11
+					required: true
+			responses:
+         			200:
+          				body:
+          					application/json:
+             						schema |
+               							{"type":"object"
+                					 	"description": "Inserted new account data"
+                					 	"properties": {
+                     					 	"id":{"type":"int"}
+                    						"client":{"type":"int"}
+                    					 	"credit":{"type":"int"}
+                   					 	"from_date": {"type":"date"}
+							 	"to_date": {"type":"date"}
+							 	"balance": {"type":"money"}
+							 	"status": {"type":"string"}
+               						 	"success": true
+                					 	"status": 200
+              						 	} 
+		put:
+			queryParameters:
+				id:
+					type: int
+					description: Account`s ID
+					example: 11
+					required: true
+				client:
+					type: int
+					description: Client`s ID
+					example: 13
+					required: true
+				credit:
+					type: int
+					description: Credit type ID
+					example: 11
+					required: true
+				from_date:
+					type: date
+					description: Start date
+					example: 11.12.2019
+					required: true
+				to_date:
+					type: date
+					description: End date
+					example: 25.02.2025
+					required: true
+				balance:
+					type: money
+					description: Balance
+					example: 15000
+					required: false
+				status:
+					type: int
+					description: Status ID
+					example: 52
+					required: true
+		delete:
+			uriParameters:
+               			id:
+                		description: Account`s ID
+                		type: int
+
+/payments
+	get:
+		responses:
+         		200:
+          			body:
+          				application/json:
+             					schema |
+               						{"type":"object"
+                					 "description": "All payments"
+                					 "properties": {
+                     					 "id":{"type":"int"}
+                    					 "sender":{"type":"int"}
+                    					 "receiver":{"type":"int"}
+                   					 "date": {"type":"date"}
+							 "amount": {"type":"money"}
+							 "status": {"type":"string"}
+               						 "success": true
+                					 "status": 200
+              						 } 
+	post:
+		queryParameters:
+			sender:
+				type: int
+				description: Client`s ID
+				example: 13
+				required: true
+			receiver:
+				type: int
+				description: Client`s ID
+				example: 23
+				required: true
+			date:
+				type: date
+				description: Payment Date
+				example: 30.11.2019
+				required: true
+			amount:
+				type: money
+				description: Amount
+				example: 15260
+				required: true
+			status:
+				type: int
+				description: Payment status
+				example: 3
+				required: true
+		responses:
+         		200:
+          			body:
+          				application/json:
+             					schema |
+               						{"type":"object"
+                					 "description": "Inserted new payment data"
+                					 "properties": {
+                     					 "id":{"type":"int"}
+                    					 "sender":{"type":"int"}
+                    					 "receiver":{"type":"int"}
+                   					 "date": {"type":"date"}
+							 "amount": {"type":"money"}
+							 "status": {"type":"string"}
+               						 "success": true
+                					 "status": 200
+              						 } 
+	/{paymentID}
+		get:
+			queryParameters:
+				id:
+					type: int
+					description: Payment`s ID
+					example: 11
+					required: true
+			responses:
+         			200:
+          				body:
+          					application/json:
+             						schema |
+               						{"type":"object"
+                					 "description": "Inserted new payment data"
+                					 "properties": {
+                     					 "id":{"type":"int"}
+                    					 "sender":{"type":"int"}
+                    					 "receiver":{"type":"int"}
+                   					 "date": {"type":"date"}
+							 "amount": {"type":"money"}
+							 "status": {"type":"string"}
+               						 "success": true
+                					 "status": 200
+              						 } 
+		put:
+			queryParameters:
+				sender:
+					type: int
+					description: Client`s ID
+					example: 13
+					required: false
+				receiver:
+					type: int
+					description: Client`s ID
+					example: 23
+					required: false
+				date:
+					type: date
+					description: Payment Date
+					example: 30.11.2019
+					required: false
+				amount:
+					type: money
+					description: Amount
+					example: 15260
+					required: false
+				status:
+					type: int
+					description: Payment status
+					example: 3
+					required: false
+			responses:
+         			200:
+          				body:
+          					application/json:
+             						schema |
+               						{"type":"object"
+                					 "description": "Updated new payment data"
+                					 "properties": {
+                     					 "id":{"type":"int"}
+                    					 "sender":{"type":"int"}
+                    					 "receiver":{"type":"int"}
+                   					 "date": {"type":"date"}
+							 "amount": {"type":"money"}
+							 "status": {"type":"string"}
+               						 "success": true
+                					 "status": 200
+              						 } 
+		delete:
+			uriParameters:
+               			id:
+                		description: Payment`s ID
+                		type: int
+
+/autopayments
+	get:
+		responses:
+         		200:
+          			body:
+          				application/json:
+             					schema |
+               						{"type":"object"
+                					 "description": "All autopayments"
+                					 "properties": {
+                     					 "id":{"type":"int"}
+                    					 "sender":{"type":"int"}
+                    					 "receiver":{"type":"int"}
+                   					 "every_what": {"type":"string"}
+							 "every_number": {"type":"int"}
+							 "frequency": {"type":"int"}
+							 "amount": {"type":"money"}
+							 "comment": {"type":"string"}
+							 "is_active": {"type":"bool"}
+               						 "success": true
+                					 "status": 200
+              						 } 
+	post:
+		queryParameters:
+			sender:
+				type: int
+				description: Client`s ID
+				example: 13
+				required: true
+			receiver:
+				type: int
+				description: Client`s ID
+				example: 23
+				required: true
+			every_what:
+				type: string
+				description: 
+				example: month
+				required: true
+			every_number:
+				type: int
+				description: 
+				example: 6
+				required: true
+			frequency:
+				type: int
+				description:
+				example: 3
+				required: true
+			amount:
+				type: money
+				description: 
+				example: 12333
+				required: true
+			comment:
+				type: string
+				description: Client`s comment
+				example: "House bill"
+				required: false
+			is_active:
+				type: int
+				description: 
+				example: 1
+				required: true
+		responses:
+         		200:
+          			body:
+          				application/json:
+             					schema |
+               						{"type":"object"
+                					 "description": "Inserted autopayment"
+                					 "properties": {
+                     					 "id":{"type":"int"}
+                    					 "sender":{"type":"int"}
+                    					 "receiver":{"type":"int"}
+                   					 "every_what": {"type":"string"}
+							 "every_number": {"type":"int"}
+							 "frequency": {"type":"int"}
+							 "amount": {"type":"money"}
+							 "comment": {"type":"string"}
+							 "is_active": {"type":"bool"}
+               						 "success": true
+                					 "status": 200
+              						 } 
+	/{autopaymentID}
+		get:
+			responses:
+         			200:
+          				body:
+          					application/json:
+             						schema |
+               							{"type":"object"
+                					 	"description": "All autopayments"
+                					 	"properties": {
+                     					 	"id":{"type":"int"}
+                    					 	"sender":{"type":"int"}
+                    					 	"receiver":{"type":"int"}
+                   					 	"every_what": {"type":"string"}
+							 	"every_number": {"type":"int"}
+							 	"frequency": {"type":"int"}
+							 	"amount": {"type":"money"}
+							 	"comment": {"type":"string"}
+							 	"is_active": {"type":"bool"}
+               						 	"success": true
+                					 	"status": 200
+              						 	} 
+		put:
+			queryParameters:
+				sender:
+					type: int
+					description: Client`s ID
+					example: 13
+					required: false
+				receiver:
+					type: int
+					description: Client`s ID
+					example: 23
+					required: false
+				every_what:
+					type: string
+					description: 
+					example: month
+					required: false
+				every_number:
+					type: int
+					description: 
+					example: 6
+					required: false
+				frequency:
+					type: int
+					description:
+					example: 3
+					required: false
+				amount:
+					type: money
+					description: 
+					example: 12333
+					required: false
+				comment:
+					type: string
+					description: Client`s comment
+					example: "House bill"
+					required: false
+				is_active:
+					type: int
+					description: 
+					example: 1
+					required: false
+		delete:
+			uriParameters:
+               			id:
+                		description: Autopayment`s ID
+                		type: int
+
+
+
+/credits
+	get:
+		responses:
+         		200:
+          			body:
+          				application/json:
+             					schema |
+               						{"type":"object"
+                					 "description": "All credit types"
+                					 "properties": {
+                     					 "id":{"type":"int"}
+                    					 "name":{"type":"string"}
+                    					 "limit":{"type":"string"}
+                   					 "rate": {"type":"decimal"}
+							 "exp": {"type":"date"}
+							 "condition": {"type":"string"}
+               						 "success": true
+                					 "status": 200
+              						 } 
+	post:
+		queryParameters:
+			name:
+				type: string
+				description: Credit name
+				example: "Soft credit"
+				required: true
+			limit:
+				type: money
+				description: 
+				example: 300000
+				required: true
+			rate:
+				type: decimal
+				description: Interest rate
+				example: 11.5
+				required: true
+			exp:
+				type: date
+				description: Expiration date
+				example: 23.02.2021
+				required: true
+			condition:
+				type: string
+				description: Other conditions
+				example: "Lorem ipsum dolores"
+				required: false
+		responses:
+         		200:
+          			body:
+          				application/json:
+             					schema |
+               						{"type":"object"
+                					 "description": "All credit types"
+                					 "properties": {
+                     					 "id":{"type":"int"}
+                    					 "name":{"type":"string"}
+                    					 "limit":{"type":"string"}
+                   					 "rate": {"type":"decimal"}
+							 "exp": {"type":"date"}
+							 "condition": {"type":"string"}
+               						 "success": true
+                					 "status": 200
+              						 } 
+	/{creditID}
+		get:
+			responses:
+         			200:
+          				body:
+          					application/json:
+             						schema |
+               							{"type":"object"
+                					 	"description": "Credit types by ID"
+                					 	"properties": {
+                     					 	"id":{"type":"int"}
+                    					 	"name":{"type":"string"}
+                    					 	"limit":{"type":"string"}
+                   					 	"rate": {"type":"decimal"}
+							 	"exp": {"type":"date"}
+							 	"condition": {"type":"string"}
+               						 	"success": true
+                					 	"status": 200
+              						 	} 
+		put:
+			queryParameters:
+				name:
+					type: string
+					description: Credit name
+					example: "Soft credit"
+					required: true
+				limit:
+					type: money
+					description: 
+					example: 300000
+					required: true
+				rate:
+					type: decimal
+					description: Interest rate
+					example: 11.5
+					required: true
+				exp:
+					type: date
+					description: Expiration date
+					example: 23.02.2021
+					required: true
+				condition:
+					type: string
+					description: Other conditions
+					example: "Lorem ipsum dolores"
+					required: false
+		delete:
+			uriParameters:
+               			id:
+                		description: Credit`s ID
+                		type: int
+
+
+
+.......
